@@ -100,3 +100,45 @@ class EiaApiParserSTEO:
         return Metadata(series_id, frequency,
                         description, units,
                         date_range)
+
+
+class EiaApiParserPrices(EiaApiParserSTEO):
+    def parse_response_to_series(self) -> pd.Series:
+        response = self.make_dict_from_json_response()
+        data_list = response['response']['data']
+
+        values = []
+        dates = []
+        for t in range(len(data_list)):
+            values.append(data_list[t]['value'])
+            dates.append(data_list[t]['period'])
+
+        name = data_list[0]['series']
+        series = pd.Series(values, index=list(dates), name=name)
+        series.index = pd.to_datetime(series.index).to_period("W-FRI")
+        return series
+
+    @property
+    def eia_metadata(self):
+        response = self.make_dict_from_json_response()
+        data_series = self.parse_response_to_series()
+
+        first_point = response['response']['data'][0]
+
+        Metadata = namedtuple("Metadata",
+                              'series_id frequency description units '
+                              'date_range')
+
+        series_id = first_point['series']
+        frequency = response['response']['frequency']
+        description = first_point['series-description']
+        units = first_point['units']
+        min_date = data_series.index.min().to_timestamp().strftime(
+            self.date_format_for_metadata)
+        max_date = data_series.index.max().to_timestamp().strftime(
+            self.date_format_for_metadata)
+        date_range = str(f"from {min_date} to {max_date}")
+
+        return Metadata(series_id, frequency,
+                        description, units,
+                        date_range)

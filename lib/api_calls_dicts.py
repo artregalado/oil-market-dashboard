@@ -5,6 +5,6 @@ steo_calls = {
 }
 
 
-price_calls = {'brent_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=desc&offset=0&length=5000'
-}
+price_calls = {'brent_spot_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               'wti_spot_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'}
 
