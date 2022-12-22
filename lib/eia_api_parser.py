@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from collections import namedtuple
 import requests
+from requests.exceptions import HTTPError
 import json
 import pandas as pd
 
@@ -11,14 +12,18 @@ class EiaApiCaller:
 
     def make_request(self) -> requests.Response:
         payload = {'api_key': self.api_key}
-        response = requests.get(self.api_call, params=payload)
-
-        if response.status_code == requests.codes.ok:
+        try:
+            response = requests.get(self.api_call, params=payload)
+            response.raise_for_status()
             return response
+        except HTTPError as http_err:
+            print(f'HTTP error occurred: {http_err}')  # Python 3.6
+        except Exception as err:
+            print(f'Other error occurred: {err}')  # Python 3.6
         else:
-            return response.raise_for_status()
+            print('Success!')
 
-class EiaApiParser:
+class EiaApiParserSTEO:
     """
     The parser is assumming the request is to Caller returns 1 data series.
     The parser will not work with calls that return more than 1
@@ -31,18 +36,18 @@ class EiaApiParser:
 
         self.response: requests.Response = response
 
-    def make_json_response(self) -> str:
+    def make_dict_from_json_response(self) -> str:
         response = self.response
         return json.loads(response.text)
 
     def write_json_response_to_file(self, filename: str) -> None:
-        response = self.make_json_response()
+        response = self.make_dict_from_json_response()
         with open(filename, 'w') as f:
             f.write(json.dumps(response, indent=4))
 
     @property
     def date_format_for_metadata(self):
-        response = self.make_json_response()
+        response = self.make_dict_from_json_response()
         frequency = response['response']['frequency']
 
         if frequency == "monthly":
@@ -57,7 +62,7 @@ class EiaApiParser:
             return "Cannot determine date frequency"
 
     def parse_response_to_series(self) -> pd.Series:
-        response = self.make_json_response()
+        response = self.make_dict_from_json_response()
         data_list = response['response']['data']
 
         values = []
@@ -74,7 +79,7 @@ class EiaApiParser:
 
     @property
     def eia_metadata(self):
-        response = self.make_json_response()
+        response = self.make_dict_from_json_response()
         data_series = self.parse_response_to_series()
 
         first_point = response['response']['data'][0]
