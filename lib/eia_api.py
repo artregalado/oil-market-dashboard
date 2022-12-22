@@ -46,9 +46,14 @@ class EiaApiParserSTEO:
             f.write(json.dumps(response, indent=4))
 
     @property
+    def series_frequency(self) -> str:
+        response = self.make_dict_from_json_response()
+        return response['response']['frequency']
+
+    @property
     def date_format_for_metadata(self):
         response = self.make_dict_from_json_response()
-        frequency = response['response']['frequency']
+        frequency = self.series_frequency
 
         if frequency == "monthly":
             return "%Y-%m"
@@ -115,7 +120,16 @@ class EiaApiParserPrices(EiaApiParserSTEO):
 
         name = data_list[0]['series']
         series = pd.Series(values, index=list(dates), name=name)
-        series.index = pd.to_datetime(series.index).to_period("W-FRI")
+
+        if self.series_frequency == "annual":
+            series.index = pd.to_datetime(series.index, format="%Y").to_period("A-DEC")
+        elif self.series_frequency == "monthly":
+            series.index = pd.to_datetime(series.index).to_period('M')
+        elif self.series_frequency == "weekly":
+            series.index = pd.to_datetime(series.index).to_period("W-FRI")
+        else: # assume daily
+            series.index = pd.to_datetime(series.index).to_period("D")
+
         return series
 
     @property

@@ -33,6 +33,10 @@ steo_calls = {
     'oecd_commercial_inventories': 'https://api.eia.gov/v2/steo/data/?frequency=monthly&data[0]=value&facets[seriesId][]=PASC_OECD_T3&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'}
 
 
-price_calls = {'brent_spot_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               'wti_spot_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'}
+price_calls = {'brent_spot_annual_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=annual&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               'brent_spot_monthly_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=monthly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               'brent_spot_weekly_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               'brent_spot_daily_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=daily&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               'wti_spot_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+               }
 
