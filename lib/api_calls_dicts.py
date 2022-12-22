@@ -30,13 +30,24 @@ steo_calls = {
     # Inventory changes data series
     'total_stock_net_draw': 'https://api.eia.gov/v2/steo/data/?frequency=monthly&data[0]=value&facets[seriesId][]=T3_STCHANGE_WORLD&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
     'usa_commercial_inventories': 'https://api.eia.gov/v2/steo/data/?frequency=monthly&data[0]=value&facets[seriesId][]=PASC_US&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-    'oecd_commercial_inventories': 'https://api.eia.gov/v2/steo/data/?frequency=monthly&data[0]=value&facets[seriesId][]=PASC_OECD_T3&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'}
+    'oecd_commercial_inventories': 'https://api.eia.gov/v2/steo/data/?frequency=monthly&data[0]=value&facets[seriesId][]=PASC_OECD_T3&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'
+}
 
 
-price_calls = {'brent_spot_annual_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=annual&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               'brent_spot_monthly_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=monthly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               'brent_spot_weekly_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               'brent_spot_daily_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=daily&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               'wti_spot_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
-               }
+price_calls = {
+
+    #Brent Spot
+    'brent_spot_annual_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=annual&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'brent_spot_monthly_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=monthly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'brent_spot_weekly_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'brent_spot_daily_price':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=daily&data[0]=value&facets[series][]=RBRTE&sort[0][column]=period&sort[0][direction]=asc&offset=5000&length=5000',
+    # WTI Spot
+    'wti_spot_annual_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=annual&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'wti_spot_monthly_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=monthly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'wti_spot_weekly_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'wti_spot_daily_price': 'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=daily&data[0]=value&facets[product][]=EPCWTI&sort[0][column]=period&sort[0][direction]=asc&offset=5000&length=5000',
+    # Gasoline spot
+    'ny_harbor_gasoline_weekly':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=EER_EPMRU_PF4_Y35NY_DPG&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000',
+    'rbob_gasoline_weekly':'https://api.eia.gov/v2/petroleum/pri/spt/data/?frequency=weekly&data[0]=value&facets[series][]=EER_EPMRR_PF4_Y05LA_DPG&sort[0][column]=period&sort[0][direction]=asc&offset=0&length=5000'
+}
 
